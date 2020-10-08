@@ -1,12 +1,13 @@
 import React from 'react';
+import { SingleTriangle } from '..';
 
 class Triangle extends React.Component
 {
     render()
     {
         return(
-            <div>
-
+            <div className="triangles">
+                <SingleTriangle/>
             </div>
         );
     }
