@@ -10,7 +10,9 @@ interface StyleProps {
 
 class SingleTriangle extends React.Component<StyleProps, StyleState> {
     render() {
-        return <div className="single-triangle position-absolute" style={this.props.styles}></div>;
+        return (
+            <div className="single-triangle" style={this.props.styles}></div>
+        );
     }
 }
 export default SingleTriangle;

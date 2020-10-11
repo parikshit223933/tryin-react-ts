@@ -24,14 +24,28 @@ class Triangles extends React.Component<PropInterface, StateInterface> {
         return param === '' ? 'none' : 0;
     };
 
-    getStyles = (top: number = 0, left: number = 0, borderLeft: string, borderRight: string, borderBottom: string, borderTop: string): object => {
+    getStyles = (
+        top: number = 0,
+        left: number = 0,
+        borderLeft: string,
+        borderRight: string,
+        borderBottom: string,
+        borderTop: string
+    ): object => {
         top = this.getProper(top);
         left = this.getProper(left);
         borderLeft = this.getProper(borderLeft);
         borderRight = this.getProper(borderRight);
         borderBottom = this.getProper(borderBottom);
         borderTop = this.getProper(borderTop);
-        const newObj = { top: top.toString() + 'px', left: left.toString() + 'px', borderLeft, borderRight, borderBottom, borderTop };
+        const newObj = {
+            top: top.toString() + 'px',
+            left: left.toString() + 'px',
+            borderLeft,
+            borderRight,
+            borderBottom,
+            borderTop,
+        };
         return newObj;
     };
 
@@ -52,19 +66,40 @@ class Triangles extends React.Component<PropInterface, StateInterface> {
         return this.boundingRect().y;
     };
     getYEnd = (): number => {
-        return  this.boundingRect().height-this.getYStart();
+        return this.boundingRect().height - this.getYStart();
     };
-    getstylesArr = (): Object[] => {
+    getstylesArr = (threshold: number, numberOfTriangles: number): Object[] => {
         let styles = [];
-        for (let i: number = 0; i < 2000; i++) {
+        for (let i: number = 0; i < numberOfTriangles; i++) {
             styles.push(
                 this.getStyles(
-                    this.getRandomInLimit(0, this.getYEnd()),
-                    this.getRandomInLimit(this.getXStart(), this.getXEnd()),
-                    `0.5vw solid transparent`,
-                    `0.5vw solid transparent`,
-                    `0.5vw solid red`,
-                    ''
+                    this.getRandomInLimit(0, this.getYEnd() - threshold),
+                    this.getRandomInLimit(
+                        this.getXStart(),
+                        this.getXEnd() - threshold
+                    ),
+                    `${this.getRandomInLimit(0, 1)}vw solid transparent`,
+                    `${this.getRandomInLimit(0, 1)}vw solid transparent`,
+                    `${this.getRandomInLimit(
+                        0,
+                        1
+                    )}vw solid rgb(${this.getRandomInLimit(
+                        0,
+                        255
+                    )}, ${this.getRandomInLimit(
+                        0,
+                        255
+                    )}, ${this.getRandomInLimit(0, 255)})`,
+                    `${this.getRandomInLimit(
+                        0,
+                        1
+                    )}vw solid rgb(${this.getRandomInLimit(
+                        0,
+                        255
+                    )}, ${this.getRandomInLimit(
+                        0,
+                        255
+                    )}, ${this.getRandomInLimit(0, 255)})`
                 )
             );
         }
@@ -73,11 +108,17 @@ class Triangles extends React.Component<PropInterface, StateInterface> {
 
     render() {
         if (this.state.element !== null) {
-            const styleaArr = this.getstylesArr();
+            const styleaArr = this.getstylesArr(25, 1000);
             return (
                 <div className="triangles">
                     {styleaArr.map((style, index) => {
-                        return <SingleTriangle styles={style} key={index} id={`triangle${index}`} />;
+                        return (
+                            <SingleTriangle
+                                styles={style}
+                                key={index}
+                                id={`triangle${index}`}
+                            />
+                        );
                     })}
                 </div>
             );

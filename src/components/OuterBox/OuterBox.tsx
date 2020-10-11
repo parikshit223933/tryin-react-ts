@@ -6,7 +6,7 @@ class OuterBox extends React.Component<any, any> {
     render() {
         return (
             <div className="pt-5">
-                <div className="outer-box position-relative">
+                <div className="outer-box">
                     <p className="text-center m-0">PARIKSHIT</p>
                     <Triangles />
                 </div>
