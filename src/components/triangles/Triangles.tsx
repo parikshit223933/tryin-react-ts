@@ -1,5 +1,6 @@
 import React from 'react';
 import { SingleTriangle } from '..';
+import './styles/triangles.scss';
 
 interface StateInterface {
     element: any;
