@@ -1,7 +1,7 @@
 import React from 'react';
 import { SingleTriangle } from '..';
 
-class Triangle extends React.Component
+class Triangles extends React.Component
 {
     render()
     {
@@ -13,4 +13,4 @@ class Triangle extends React.Component
     }
 }
 
-export default Triangle;
+export default Triangles;

@@ -1,9 +1,9 @@
 import OuterBox from './OuterBox/OuterBox';
-import Triangle from './triangles/Triangle';
+import Triangles from './triangles/Triangles';
 import SingleTriangle from './triangles/reusables/SingleTriangle';
 
 export {
     OuterBox,
-    Triangle,
+    Triangles,
     SingleTriangle
 }

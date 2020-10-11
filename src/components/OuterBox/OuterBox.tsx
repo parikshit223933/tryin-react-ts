@@ -1,5 +1,5 @@
 import React from 'react';
-import { Triangle } from '../';
+import { Triangles } from '../';
 import './styles/outerbox.scss';
 
 class OuterBox extends React.Component<any, any> {
@@ -9,7 +9,7 @@ class OuterBox extends React.Component<any, any> {
                 <div className="row pt-5">
                     <div className="col-md-10 offset-md-1 p-5 outer-box position-relative">
                         <p className="text-center m-0">PARIKSHIT</p>
-                        <Triangle />
+                        <Triangles />
                     </div>
                 </div>
             </div>
