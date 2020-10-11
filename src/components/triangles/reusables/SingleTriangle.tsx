@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import './styles/singleTriangle.scss';
 
-class SingleTriangle extends React.Component
-{
-    render()
-    {
-        return(
-            <div className="single-triangle position-absolute">
+interface StyleState {}
 
-            </div>
-        );
-    }
+interface StyleProps {
+    styles: CSSProperties;
+    id: String;
 }
 
+class SingleTriangle extends React.Component<StyleProps, StyleState> {
+    render() {
+        return <div className="single-triangle position-absolute" style={this.props.styles}></div>;
+    }
+}
 export default SingleTriangle;
