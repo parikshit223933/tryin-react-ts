@@ -1,6 +1,41 @@
+@keyframes rotor1 {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
+@keyframes rotor2 {
+    from {
+        transform: rotateX(0deg);
+    }
+    to {
+        transform: rotateX(360deg);
+    }
+}
+@keyframes rotor3 {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateX(360deg);
+    }
+}
+@keyframes rotor4 {
+    from {
+        transform: rotateX(0deg);
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
 .single-triangle {
     height: 0px;
     width: 0px;
     z-index: 100;
     position: absolute;
+
+    transform-style: preserve-3d;
+    perspective: 30000;
 }
