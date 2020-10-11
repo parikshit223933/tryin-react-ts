@@ -35,7 +35,7 @@
     width: 0px;
     z-index: 100;
     position: absolute;
-
+    animation: rotor1 ease-in-out 1s infinite;
     transform-style: preserve-3d;
     perspective: 30000;
 }
