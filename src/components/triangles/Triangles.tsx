@@ -1,6 +1,7 @@
 import React from 'react';
 import { SingleTriangle } from '..';
 import './styles/triangles.scss';
+import $ from 'jquery';
 
 interface StateInterface {
     element: any;
@@ -31,7 +32,8 @@ class Triangles extends React.Component<PropInterface, StateInterface> {
         borderLeft: string,
         borderRight: string,
         borderBottom: string,
-        borderTop: string
+        borderTop: string,
+        animation: String
     ): object => {
         top = this.getProper(top);
         left = this.getProper(left);
@@ -39,6 +41,7 @@ class Triangles extends React.Component<PropInterface, StateInterface> {
         borderRight = this.getProper(borderRight);
         borderBottom = this.getProper(borderBottom);
         borderTop = this.getProper(borderTop);
+        animation = this.getProper(animation);
         const newObj = {
             top: top.toString() + 'px',
             left: left.toString() + 'px',
@@ -46,6 +49,7 @@ class Triangles extends React.Component<PropInterface, StateInterface> {
             borderRight,
             borderBottom,
             borderTop,
+            animation,
         };
         return newObj;
     };
@@ -69,7 +73,14 @@ class Triangles extends React.Component<PropInterface, StateInterface> {
     getYEnd = (): number => {
         return this.boundingRect().height - this.getYStart();
     };
-    getstylesArr = (threshold: number, numberOfTriangles: number): Object[] => {
+    getstylesArr = (
+        threshold: number,
+        numberOfTriangles: number,
+        timeRangeStart: number,
+        timeRangeEnd: number,
+        handleMouseEvent: boolean,
+        radiusAroundMouse: number
+    ): Object[] => {
         let styles = [];
         for (let i: number = 0; i < numberOfTriangles; i++) {
             styles.push(
@@ -100,16 +111,54 @@ class Triangles extends React.Component<PropInterface, StateInterface> {
                     )}, ${this.getRandomInLimit(
                         0,
                         255
-                    )}, ${this.getRandomInLimit(0, 255)})`
+                    )}, ${this.getRandomInLimit(0, 255)})`,
+                    `rotor${this.getRandomInLimit(
+                        1,
+                        4
+                    )} ease-in-out ${this.getRandomInLimit(
+                        timeRangeStart,
+                        timeRangeEnd
+                    )}s infinite`
                 )
             );
         }
+        if (handleMouseEvent) this.handleMouseEvent(radiusAroundMouse);
         return styles;
     };
+    handleMouseEvent = (radiusAroundMouse: number) => {
+        document
+            .getElementsByClassName('outer-box')[0]
+            .addEventListener('mousemove', (e: MouseEventInit) => {
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
 
+                $('.single-triangle')
+                    .toArray()
+                    .forEach((triangle) => {
+                        let jQueryElement = $(triangle);
+                        const pos = jQueryElement.position();
+                        const elementX = pos.left;
+                        const elementY = pos.top;
+                        let initialAnimation = jQueryElement.css('animation');
+                        if (
+                            mouseX !== undefined &&
+                            mouseY !== undefined &&
+                            Math.abs(mouseX - elementX) < radiusAroundMouse &&
+                            Math.abs(mouseY - elementY) < radiusAroundMouse
+                        ) {
+                            jQueryElement.css(
+                                'animation',
+                                'rotor1 ease-in-out 0.1s infinite'
+                            );
+                        } else {
+                            jQueryElement.css('animation', initialAnimation);
+                        }
+                    });
+            });
+    };
     render() {
         if (this.state.element !== null) {
-            const styleaArr = this.getstylesArr(25, 1000);
+            const styleaArr = this.getstylesArr(25, 1000, 1, 100, true, 100);
             return (
                 <div className="triangles">
                     {styleaArr.map((style, index) => {
